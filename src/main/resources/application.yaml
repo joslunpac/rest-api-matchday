@@ -1,0 +1,39 @@
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api
+
+spring:
+  profiles:
+    active: @activatedProperties@
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger # Path for swagger, defaults to /swagger-ui.html
+    tags-sorter: alpha # We order the tags alphabetically
+    operations-sorter: method # We order operations by type
+    doc-expansion: list # We expand the tags by default
+    default-models-expand-depth: 0 # We contract the models by default
+  api-docs:
+    path: /docs # Path for docs, defaults to /v3/api-docs
+    groups:
+      enabled: true
+  group-configs:
+    - group: v1.0.0
+      packages-to-scan:
+        - com.matchday.api.controller
+      paths-to-match: /**
+
+app:
+  name: @project.name@
+  version: @project.version@
+  description: @project.description@
